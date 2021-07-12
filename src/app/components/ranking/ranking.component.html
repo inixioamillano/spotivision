@@ -1,0 +1,19 @@
+<ul>
+    <li class="ranking-item background" *ngFor="let contestant of contestants | orderByPoints; let i = index">
+        <div class="points background">
+            {{i + 1}}
+        </div>
+        <div class="flag">
+            <img class="flag" [src]="'../../../assets/flags/' + contestant.countryCode + '.png'" />
+        </div>
+        <div class="info">
+            <div class="song">
+                <div class="title">{{contestant.songTitle}}</div>
+                <div class="singer">{{contestant.singer}} ({{contestant.countryName}})</div>
+            </div>
+            <div class="points">
+                {{contestant.points}}
+            </div>
+        </div>
+    </li>
+</ul>
