@@ -88,7 +88,7 @@ export class AppComponent implements OnInit {
   }
 
   async share() {
-    await window.navigator.share({ title: "SpotiVision", url: "https://spotivision.herokuapp.com/" });
+    await window.navigator.share({ title: "SpotiVision", url: "https://spotivisionapp.herokuapp.com/" });
   }
 
 }
