@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
               ((tracks: any[]) => {
                 this.tracks = tracks;
                 this.contestants = this.contestants.map((c) => {
-                  const index = tracks.findIndex((track) => c.spotifyId.includes(track.id) || track.name.toLowerCase().replace(' - eurovision version', '') === (c.songTitle.toLowerCase()));
+                  const index = tracks.findIndex((track) => c.spotifyData.find(sd => sd.trackId === track.id || sd.title === track.name));
                   if (index !== -1) {
                     console.log(`${tracks[index].name} appears in ${range} at position ${index + 1} (+${(value + 1) * (50 - index)} points)`)
                     c.points += (value + 1) * (50 - index);

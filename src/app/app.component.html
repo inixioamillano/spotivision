@@ -12,7 +12,8 @@
   <div class="container">
     <div *ngIf="!token; else ranking" style="align-items: center;">
       <p>Generate your Eurovision 2021 ranking based on your most played songs.</p>
-      <p>I generate a Eurovision 2021 ranking based on your top tracks in the last 3 months, 6 months and last yea </p>
+      <p>I generate a Eurovision 2021 ranking based on your top tracks in the last 4 weeks, 6 months and last year.</p>
+      <p>Since version v1.0.1, I make an exhaustive search. If one of your favourite songs is missing in yout ranking, your Spotify has not gathered correctly your top tracks. This is not a problem with SpotiVision, but with the Spotify Web API.</p>
       <p>Developed by @inixiodev. All rights reserved.</p>
       <div class="col text-center">
         <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Login with Spotify</button>

@@ -31,4 +31,12 @@ export class SpotifyService {
     return this.http.get(`https://api.spotify.com/v1/me`, {headers})
       .pipe(take(1), map((profile: any) => ({id: profile.id, name: profile.display_name})))
   }
+
+  searchTrack(searchTerm: string, token: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/json');
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return this.http.get(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`, {headers}).pipe(take(1), map((res: any) => res.tracks.items || []));
+  }
 }

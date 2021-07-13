@@ -3,6 +3,11 @@ export class Contestant {
     countryName: string;
     songTitle: string;
     singer: string;
-    spotifyId: string[];
+    spotifyData: Array<{
+        trackId: string;
+        title: string;
+        singer: string;
+    }>;
     points: number;
+    checked?:boolean;
 }
