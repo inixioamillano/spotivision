@@ -22,9 +22,10 @@
       <div>
         <div class="col" style="display: flex;">
           <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Guardar como imagen</button>
-          <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="share()">Compartir app</button>
+          <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" *ngIf="canShare" (click)="share()">Compartir app</button>
         </div>
         <div class="bold" *ngIf="profile">Puntos otorgados por {{profile.name || profile.id}} en el Benidorm Fest 2022 según Spotify</div>
+        <div hidden class="text-center" id="watermark">https://spotivision.inixio.dev</div>
         <ranking [contestants]="contestants"></ranking>
       </div>
     </ng-template>

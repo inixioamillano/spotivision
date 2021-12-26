@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   tracks = [];
   profile: any;
   contestants = CONTESTANTS;
+  canShare = true; //window.navigator.share;
   @ViewChild('printable', { static: false }) ranking: any;
   
   constructor(
@@ -73,6 +74,8 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < collapsables.length; i++ ) {
       collapsables.item(i).setAttribute('hidden', 'true');
     }
+    const watermark = document.getElementById('watermark');
+    watermark.removeAttribute('hidden');
     this.captureService.getImage(this.ranking.nativeElement, true)
         .pipe(
           tap(async img => {
@@ -88,10 +91,12 @@ export class AppComponent implements OnInit {
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
+            watermark.setAttribute('hidden', 'true');
           })
         ).subscribe(() => {}, () => {
           for (let i = 0; i < collapsables.length; i++ ) {
             collapsables.item(i).removeAttribute('hidden');
+            watermark.setAttribute('hidden', 'true');
           }
         });
   }

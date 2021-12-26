@@ -16,6 +16,7 @@ export class RankingComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.contestants)
   }
 
 }
