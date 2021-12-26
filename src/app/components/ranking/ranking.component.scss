@@ -18,6 +18,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin-left: 5px;
 }
 
 .title {
@@ -26,6 +27,7 @@
 
 .singer {
     font-family: 'Gotham-Book';
+    font-size: 11px;
 }
 
 .points {
@@ -38,6 +40,14 @@
     align-items: center;
     text-align: center;
     display: flex;
+    &_container {
+        width: 100px;
+        display: flex;
+    }
+}
+
+.animation {
+    animation: points-anim2 1s;
 }
 
 ul {
@@ -45,9 +55,26 @@ ul {
 }
 
 .flag {
-    height: 25px;
-    width: 25px;
-    margin-right: 2px;
-    margin-left: 2px;
-    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+@keyframes points-anim {
+    from { 
+        width: 0; 
+        opacity: 0;
+    }
+    to { 
+        width: 50px; 
+        opacity: 1;
+    }
+}
+
+@keyframes points-anim2 {
+    from {  
+        opacity: 0;
+    }
+    to { 
+        opacity: 1;
+    }
 }

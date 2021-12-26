@@ -1,18 +1,23 @@
 <ul>
     <li class="ranking-item background" *ngFor="let contestant of contestants | orderByPoints; let i = index">
-        <div class="points background">
-            {{i + 1}}
-        </div>
-        <div class="flag">
-            <img class="flag" [src]="'../../../assets/flags/' + contestant.countryCode + '.png'" />
+        <div class="points flag">
+            <img class="flag" *ngIf="contestant.spotifyData[0]" [src]="contestant.spotifyData[0].imageUrl" />
         </div>
         <div class="info">
             <div class="song">
                 <div class="title">{{contestant.songTitle}}</div>
-                <div class="singer">{{contestant.singer}} ({{contestant.countryName}})</div>
+                <div class="singer">{{contestant.singer}}</div>
             </div>
-            <div class="points">
-                {{contestant.points}}
+            <div class="points_container">
+                <div *ngIf="contestant.points > 0 && (i | indextopoints) > 0; else empty" class="points" [ngClass]="{background: contestant.points > 0}">
+                    {{i | indextopoints}}
+                </div>
+                <ng-template #empty>
+                    <div class="points"></div>
+                </ng-template>
+                <div class="points">
+                    {{contestant.points + (contestant.points > 0 ? (i | indextopoints) : 0)}}
+                </div>
             </div>
         </div>
     </li>

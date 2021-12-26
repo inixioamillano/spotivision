@@ -6,26 +6,25 @@
         <img class="logo" src="../assets/logo-flag.png">
         Vision
       </span>
-      <div class="subtitle">2021</div>
+      <div class="subtitle">Benidorm Fest 2022</div>
     </div>
   </nav>
   <div class="container">
     <div *ngIf="!token; else ranking" style="align-items: center;">
-      <p>Generate your Eurovision 2021 ranking based on your most played songs.</p>
-      <p>I generate a Eurovision 2021 ranking based on your top tracks in the last 4 weeks, 6 months and last year.</p>
-      <p>Since version v1.0.1, I make an exhaustive search. If one of your favourite songs is missing in yout ranking, your Spotify has not gathered correctly your top tracks. This is not a problem with SpotiVision, but with the Spotify Web API.</p>
-      <p>Developed by @inixiodev. All rights reserved.</p>
+      <p>Obtén tus puntos del 1 al 12 de las canciones del Benidorm Fest 2022 en base a tus reproducciones de Spotify,</p>
+      <p>El ranking se genera en base a tus canciones más escuchadas en Spotify en los últimos tiempos.</p>
+      <p>Desarrollado por @inixiodev. Todos los derechos reservados.</p>
       <div class="col text-center">
-        <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Login with Spotify</button>
+        <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Iniciar sesión con Spotify</button>
       </div>
     </div>
     <ng-template #ranking>
       <div>
         <div class="col" style="display: flex;">
-          <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Save as Image</button>
-          <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="share()">Share app</button>
+          <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Guardar como imagen</button>
+          <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="share()">Compartir app</button>
         </div>
-        <div class="bold" *ngIf="profile">{{profile.name || profile.id}}'s Eurovision 2021 ranking according to Spotify</div>
+        <div class="bold" *ngIf="profile">Puntos otorgados por {{profile.name || profile.id}} en el Benidorm Fest 2022 según Spotify</div>
         <ranking [contestants]="contestants"></ranking>
       </div>
     </ng-template>

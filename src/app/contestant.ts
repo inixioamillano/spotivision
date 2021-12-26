@@ -7,6 +7,7 @@ export class Contestant {
         trackId: string;
         title: string;
         singer: string;
+        imageUrl: string;
     }>;
     points: number;
     checked?:boolean;
