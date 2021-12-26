@@ -26,7 +26,7 @@ import { VotedByPipe } from './pipes/voted-by.pipe';
     RouterModule,
     RouterModule.forRoot([])
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, OrderByPointsPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
