@@ -42,15 +42,18 @@ export class AppComponent implements OnInit {
           this.spotify.getProfile(this.token).subscribe(
             (profile: any) => this.profile = profile
           );
-          let mults = [1.5, 1.25, 1];
-          ['long_term', 'medium_term', 'short_term'].forEach((range, value) => {
+          let base = [0, 50, 100];
+          ['short_term', 'medium_term', 'long_term'].forEach((range, value) => {
             this.spotify.getTopTracks(this.token, range).subscribe(
               ((tracks: any[]) => {
                 this.tracks = tracks;
                 this.contestants = this.contestants.map((c) => {
                   const index = tracks.findIndex((track) => c.spotifyData.find(sd => sd.trackId === track.id || sd.title === track.name));
                   if (index !== -1) {
-                    const points = Math.round(mults[value] * (50 - index));
+                    let points = (50 - index);
+                    if (c.points === 0) {
+                      points += base[value];
+                    }
                     console.log(`${tracks[index].name} appears in ${range} at position ${index + 1} (+${points} points)`)
                     c.points += points;
                   }

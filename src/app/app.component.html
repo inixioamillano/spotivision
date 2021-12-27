@@ -13,6 +13,7 @@
     <div *ngIf="!token; else ranking" style="align-items: center;">
       <p>Obtén tu ranking total y tus puntos del 1 al 12 de las canciones del Benidorm Fest 2022 en base a tus reproducciones de Spotify. El ranking se genera en base a tus canciones más escuchadas en Spotify en los últimos tiempos.</p>
       <p>Es importante saber que <b>Spotify actualiza a diario los rankings de tus canciones más escuchadas</b> y que <b>cuanto más tiempo pase, más acertará tu ranking.</b></p>
+      <p><b>Los puntos que aparecen a la derecha no corresponde al número de escuchas, son puntos calculados en base a los puestos que ocupen en tu top 50 de Spotify.</b></p>
       <p>Desarrollado por <a href="https://twitter.com/inixiodev" target="blank">@inixiodev</a>. Todos los derechos reservados.</p>
       <div class="col text-center">
         <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Iniciar sesión con Spotify</button>
@@ -26,7 +27,7 @@
         </div>
         <div class="bold" *ngIf="profile && (profile.name || profile.id); else generic">Puntos otorgados por {{profile.name || profile.id}} en el Benidorm Fest 2022 según Spotify</div>
         <ng-template #generic>
-          <div class="bold">Mis puntos otorgados el Benidorm Fest 2022 según Spotify</div>
+          <div class="bold">Mis puntos otorgados en el Benidorm Fest 2022 según Spotify</div>
         </ng-template>
         <div hidden class="text-center" id="watermark">https://spotivision.inixio.dev</div>
         <ranking [contestants]="contestants"></ranking>
