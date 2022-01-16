@@ -20,7 +20,7 @@ export class SpotifyService {
     headers = headers.set('Accept', 'application/json');
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${code}`);
-    return this.http.get(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=50&offset=5`, {headers}).pipe(take(1), map((res: any) => res.items || []))
+    return this.http.get(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=50&offset=0`, {headers}).pipe(take(1), map((res: any) => res.items || []))
   }
 
   getProfile(token) {
