@@ -39,4 +39,5 @@ export class SpotifyService {
     headers = headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`, {headers}).pipe(take(1), map((res: any) => res.tracks.items || []));
   }
+
 }

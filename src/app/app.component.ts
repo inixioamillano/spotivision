@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxCaptureService } from 'ngx-capture';
 import { map, tap } from 'rxjs/operators';
@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   profile: any;
   contestants = CONTESTANTS;
   canShare = true; //window.navigator.share;
+  @ViewChild('explanationDiv')
+  inputMessageRef: ElementRef;
   explanation = 'Spotify registra tus canciones más escuchadas en 3 listas: Top 50 a corto plazo, Top 50 a medio plazo y Top 50 a largo plazo. En función a la posición que ocupe una canción en cada lista, Spotivision otorga más o menos puntos.\n\n';
   @ViewChild('printable', { static: false }) ranking: any;
 
@@ -82,7 +84,9 @@ export class AppComponent implements OnInit {
     const watermark = document.getElementById('watermark');
     watermark.removeAttribute('hidden');
     const expl = document.getElementsByClassName('explanation')[0];
+    const viewExp = document.getElementById('viewExp');
     expl.setAttribute('hidden', 'true');
+    viewExp.setAttribute('hidden', 'true');
     this.captureService.getImage(this.ranking.nativeElement, true)
         .pipe(
           tap(async img => {
@@ -100,6 +104,7 @@ export class AppComponent implements OnInit {
             document.body.removeChild(downloadLink);
             watermark.setAttribute('hidden', 'true');
             expl.removeAttribute('hidden');
+            viewExp.removeAttribute('hidden');
           })
         ).subscribe(() => {}, () => {
           for (let i = 0; i < collapsables.length; i++ ) {
@@ -107,6 +112,7 @@ export class AppComponent implements OnInit {
             watermark.setAttribute('hidden', 'true');
           }
           expl.removeAttribute('hidden');
+          viewExp.removeAttribute('hidden');
         });
   }
 
@@ -117,6 +123,11 @@ export class AppComponent implements OnInit {
       url: "http://spotivision.inixio.dev/",
       text: `¡Mis 12 puntos del #BenidormFest van para ${winner.songTitle} de ${winner.singer}! Descubre tu ranking según tu Spotify en #SpotiVision`
     });
+  }
+
+  scroll(element: HTMLElement) {
+    this.inputMessageRef.nativeElement.scrollIntoView();
+    //window.scrollBy(0, -10);
   }
 
 }

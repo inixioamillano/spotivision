@@ -5,6 +5,7 @@
 
 .navbar {
   justify-content: center;
+  position: relative;
 }
 
 .nav-item {
@@ -15,7 +16,8 @@
 
 button {
   max-width: 15%;
-  margin-left: 15px;
+  margin-left: 5px;
+  margin-top: 2px;
   font-family: 'Gotham-Book';
 }
 
@@ -31,7 +33,8 @@ button {
 }
 
 .container {
-  margin-top: 85px;
+  // 85
+  margin-top: 5px;
 }
 
 .bold {
@@ -44,4 +47,8 @@ button {
 
 #watermark {
   margin-bottom: 10px;
+}
+
+a {
+  text-align: center;
 }
