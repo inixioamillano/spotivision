@@ -14,13 +14,26 @@ import { OrderByPointsPipe } from './pipes/order-by-points.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { VotablePipe } from './pipes/votable.pipe';
 import { VotedByPipe } from './pipes/voted-by.pipe';
+import { ExplanationPipe } from './pipes/explanation.pipe';
+import { ZeroPointsPipe } from './pipes/zero-points.pipe';
 
 @NgModule({
-  declarations: [AppComponent, RankingComponent, LoadingComponent, IndextopointsPipe, ReversePipe, VotablePipe, VotedByPipe, OrderByPointsPipe],
+  declarations: [
+    AppComponent,
+    RankingComponent,
+    LoadingComponent,
+    IndextopointsPipe,
+    ReversePipe,
+    VotablePipe,
+    VotedByPipe,
+    OrderByPointsPipe,
+    ExplanationPipe,
+    ZeroPointsPipe
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,    
+    FormsModule,
     FontAwesomeModule,
     NgxCaptureModule,
     RouterModule,

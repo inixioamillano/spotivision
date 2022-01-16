@@ -33,5 +33,14 @@
         <ranking [contestants]="contestants"></ranking>
       </div>
     </ng-template>
+    <div *ngIf="token && contestants.length > 0" class="explanation">
+      <p style="white-space: pre-line">
+        {{explanation}}
+        <span *ngFor="let c of contestants | zeroPoints">
+          {{c.songTitle}} no aparece en ninguno de tus tops.<br/>
+        </span>
+      </p>
+      <p>Si una canción no obtiene puntos o obtiene menos puntos de los que crees que debería, es porque Spotify no ha registrado correctamente las estadísticas. Spotivision es lo más precisa que puede a partir de los datos que le aporta Spotify</p>
+    </div>
   </div>
 </div>

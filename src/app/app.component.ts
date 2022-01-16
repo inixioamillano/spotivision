@@ -18,15 +18,16 @@ export class AppComponent implements OnInit {
   profile: any;
   contestants = CONTESTANTS;
   canShare = true; //window.navigator.share;
+  explanation = 'Spotify registra tus canciones más escuchadas en 3 listas: Top 50 a corto plazo, Top 50 a medio plazo y Top 50 a largo plazo. En función a la posición que ocupe una canción en cada lista, Spotivision otorga más o menos puntos.\n\n';
   @ViewChild('printable', { static: false }) ranking: any;
-  
+
   constructor(
-    private spotify: SpotifyService, 
-    private route: ActivatedRoute, 
+    private spotify: SpotifyService,
+    private route: ActivatedRoute,
     private captureService: NgxCaptureService,
     private orderByPoints: OrderByPointsPipe
     ) {}
-  
+
   ngOnInit(): void {
     this.route.fragment
     .pipe(
@@ -42,7 +43,8 @@ export class AppComponent implements OnInit {
           this.spotify.getProfile(this.token).subscribe(
             (profile: any) => this.profile = profile
           );
-          let base = [0, 50, 100];
+          const base = [0, 50, 100];
+          const rangeName = ['corto', 'medio', 'largo'];
           ['short_term', 'medium_term', 'long_term'].forEach((range, value) => {
             this.spotify.getTopTracks(this.token, range).subscribe(
               ((tracks: any[]) => {
@@ -54,15 +56,15 @@ export class AppComponent implements OnInit {
                     if (c.points === 0) {
                       points += base[value];
                     }
-                    console.log(`${tracks[index].name} appears in ${range} at position ${index + 1} (+${points} points)`)
+                    this.explanation = this.explanation + `${tracks[index].name} ocupa la posición ${index + 1} en tu Top 50 a ${rangeName[value]} plazo  (+${points} puntos),\n`;
                     c.points += points;
                   }
                   return c;
-                })
+                });
               }),
               (err => window.location.href = environment.redirect_url)
-            )
-          })
+            );
+          });
       }
     }
   );
@@ -79,6 +81,8 @@ export class AppComponent implements OnInit {
     }
     const watermark = document.getElementById('watermark');
     watermark.removeAttribute('hidden');
+    const expl = document.getElementsByClassName('explanation')[0];
+    expl.setAttribute('hidden', 'true');
     this.captureService.getImage(this.ranking.nativeElement, true)
         .pipe(
           tap(async img => {
@@ -95,19 +99,21 @@ export class AppComponent implements OnInit {
             downloadLink.click();
             document.body.removeChild(downloadLink);
             watermark.setAttribute('hidden', 'true');
+            expl.removeAttribute('hidden');
           })
         ).subscribe(() => {}, () => {
           for (let i = 0; i < collapsables.length; i++ ) {
             collapsables.item(i).removeAttribute('hidden');
             watermark.setAttribute('hidden', 'true');
           }
+          expl.removeAttribute('hidden');
         });
   }
 
   async share() {
     const winner = this.orderByPoints.transform(this.contestants)[0];
-    await window.navigator.share({ 
-      title: "SpotiVision | Benidorm Fest 2022", 
+    await window.navigator.share({
+      title: "SpotiVision | Benidorm Fest 2022",
       url: "http://spotivision.inixio.dev/",
       text: `¡Mis 12 puntos del #BenidormFest van para ${winner.songTitle} de ${winner.singer}! Descubre tu ranking según tu Spotify en #SpotiVision`
     });

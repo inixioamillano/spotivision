@@ -44,6 +44,12 @@ export const CONTESTANTS: Contestant[] = [
         title: 'Culpa',
         singer: 'Javiera Mena',
         imageUrl: 'assets/covers/culpa.jpeg'
+      },
+      {
+        trackId: '4nmmmQZAEO3sC0r4jVBfLp',
+        title: 'Culpa - Eurovision Edit',
+        singer: 'Javiera Mena',
+        imageUrl: 'assets/covers/culpa.jpeg'
       }
     ],
     points: 0,
@@ -58,6 +64,12 @@ export const CONTESTANTS: Contestant[] = [
       {
         trackId: '6AMJsJnGu4LbjFgN03ghNQ',
         title: 'Secreto de Agua',
+        singer: 'Blanca Paloma Ramos Baeza',
+        imageUrl: 'assets/covers/agua.jpeg'
+      },
+      {
+        trackId: '3YLmgQg3sd5pzTrvYCWqud',
+        title: 'Secreto de Agua (Eurovision)',
         singer: 'Blanca Paloma Ramos Baeza',
         imageUrl: 'assets/covers/agua.jpeg'
       }
@@ -182,7 +194,14 @@ export const CONTESTANTS: Contestant[] = [
     countryName: 'Spain',
     songTitle: 'Make you say',
     singer: 'Sara Deop',
-    spotifyData: [],
+    spotifyData: [
+      {
+        trackId: '2gzsQUj76OrJwr2dUbGmp9',
+        title: 'Make You Say',
+        singer: 'Sara Deop',
+        imageUrl: 'assets/covers/makeyousay.jpeg'
+      }
+    ],
     points: 0,
     checked: true
   },
