@@ -77,7 +77,7 @@ export const CONTESTANTS: Contestant[] = [
     points: 0,
     checked: true
   },
-  {
+  /*{
     countryCode: 'es',
     countryName: 'Spain',
     songTitle: 'Voy a Morir',
@@ -92,7 +92,7 @@ export const CONTESTANTS: Contestant[] = [
     ],
     points: 0,
     checked: true
-  },
+  },*/
   {
     countryCode: 'es',
     countryName: 'Spain',

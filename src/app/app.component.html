@@ -1,12 +1,12 @@
 <div #printable>
-  <nav class="navbar fixed-top navbar-dark background">
+  <nav class="navbar fixed-top navbar-dark background" [ngClass]="contest.id" >
     <div class="navbar-brand">
       <span class="title">
         Spoti
         <img class="logo" src="../assets/logo-flag.png">
         Vision
       </span>
-      <div class="subtitle">Benidorm Fest 2022</div>
+      <div class="subtitle">{{contest.name}}</div>
     </div>
   </nav>
   <div class="container">
@@ -16,14 +16,20 @@
       <p><b>Los puntos que aparecen a la derecha no corresponde al número de escuchas, son puntos calculados en base a los puestos que ocupen en tu top 50 de Spotify.</b></p>
       <p>Desarrollado por <a href="https://twitter.com/inixiodev" target="blank">@inixiodev</a>. Todos los derechos reservados.</p>
       <div class="col text-center">
-        <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Iniciar sesión con Spotify</button>
+        <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Iniciar sesión con Spotify</button>
       </div>
     </div>
     <ng-template #ranking>
+      <div class="selCon">
+        Festival:
+        <select name="contestSelect" class="background" [ngClass]="contest.id" id="contestSelect" (change)="changeContest($event)">
+          <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">{{c.name}}{{c.available ? '' : ' (Available soon)'}}</option>
+        </select>
+      </div>
       <div>
         <div class="col" style="display: flex; flex-wrap: wrap;">
-          <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Guardar</button>
-          <button type="button" class="btn btn-block btn-primary background" style="max-width: fit-content; margin: 0 auto;" *ngIf="canShare" (click)="share()">Compartir</button>
+          <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Guardar</button>
+          <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" *ngIf="canShare" (click)="share()">Compartir</button>
         </div>
         <div class="col" style="display: flex;">
 
@@ -32,12 +38,12 @@
         <ng-template #generic>
           <div class="bold">Mis puntos otorgados en el Benidorm Fest 2022 según Spotify</div>
         </ng-template>
-        <a as="a" id="viewExp" (click)="scroll(explanationDiv, $event)">Ver explicación de los puntos otorgados</a>
+        <!--<a as="a" id="viewExp" (click)="scroll(explanationDiv, $event)">Ver explicación de los puntos otorgados</a>-->
         <div hidden class="text-center" id="watermark">https://spotivision.inixio.dev</div>
-        <ranking [contestants]="contestants"></ranking>
+        <ranking [contestants]="contestants" [contest]="contest"></ranking>
       </div>
     </ng-template>
-    <div *ngIf="token" class="explanation">
+    <!--<div *ngIf="token" class="explanation">
       <p #explanationDiv style="white-space: pre-line">
         {{explanation}}
         <span *ngFor="let c of contestants | zeroPoints">
@@ -45,6 +51,6 @@
         </span>
       </p>
       <p>Si una canción no obtiene puntos o obtiene menos puntos de los que crees que debería, es porque Spotify no ha registrado correctamente las estadísticas. Spotivision es lo más precisa que puede a partir de los datos que le aporta Spotify</p>
-    </div>
+    </div>-->
   </div>
 </div>

@@ -11,6 +11,9 @@ export class RankingComponent implements OnInit {
   contestants: any[];
 
   @Input()
+  contest: any;
+
+  @Input()
   users: any[];
 
   constructor() { }

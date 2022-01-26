@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class SpotifyService {
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(`https://api.spotify.com/v1/me`, {headers})
-      .pipe(take(1), map((profile: any) => ({id: profile.id, name: profile.display_name})))
+      .pipe(take(1), tap((res) => console.log(res)), map((profile: any) => ({id: profile.id, name: profile.display_name})))
   }
 
   searchTrack(searchTerm: string, token: string) {
