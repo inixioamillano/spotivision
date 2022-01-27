@@ -10,5 +10,31 @@ export class Contestant {
         imageUrl: string;
     }>;
     points: number;
-    checked?:boolean;
+    checked?: boolean;
+
+    constructor(
+        songTitle: string,
+        singer: string,
+        trackId: string,
+        title: string,
+        spotifySinger: string,
+        imageUrl: string,
+        points?: number,
+        checked?: boolean,
+        countryCode?: string,
+        countryName?: string,
+    ) {
+        this.songTitle = songTitle;
+        this.singer = singer;
+        this.points = points;
+        this.checked = checked;
+        this.spotifyData = [{
+            trackId,
+            title,
+            singer: spotifySinger,
+            imageUrl,
+        }];
+        this.countryCode = countryCode ? countryCode : '';
+        this.countryName = countryName ? countryName : '';
+    }
 }

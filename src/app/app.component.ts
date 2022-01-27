@@ -1,12 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxCaptureService } from 'ngx-capture';
 import { map, tap } from 'rxjs/operators';
+import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { CONTESTANTS } from './contestants';
 import CONTESTS from './contests';
 import { OrderByPointsPipe } from './pipes/order-by-points.pipe';
 import { SpotifyService } from './services/spotify.service';
+import { Contestant } from './contestant';
+import { SessionStorageService } from './session-storage.service';
 @Component({
   selector: 'euroboard-root',
   templateUrl: './app.component.html',
@@ -19,7 +22,7 @@ export class AppComponent implements OnInit {
   profile: any;
   contests = CONTESTS;
   contest = this.contests[0];
-  contestants = this.contest.contestants;
+  contestants: Contestant[] = this.contest.contestants;
   canShare = true;
   elFestivalQueQuieres = true;
   term = 'short_term';
@@ -28,13 +31,18 @@ export class AppComponent implements OnInit {
   inputMessageRef: ElementRef;
   explanation = 'Spotify registra tus canciones más escuchadas en 3 listas: Top 50 a corto plazo, Top 50 a medio plazo y Top 50 a largo plazo. En función a la posición que ocupe una canción en cada lista, Spotivision otorga más o menos puntos.\n\n';
   @ViewChild('printable', { static: false }) ranking: any;
+  ACCESS_TOKEN = 'access_token';
+  EXPIRATION = 'expires_in';
+  EXPIRATION_DATE = 'expiration_date';
 
   constructor(
     private spotify: SpotifyService,
     private route: ActivatedRoute,
     private captureService: NgxCaptureService,
-    private orderByPoints: OrderByPointsPipe
-    ) {}
+    private orderByPoints: OrderByPointsPipe,
+    private sessionStorage: SessionStorageService,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.getPoints();
@@ -50,18 +58,25 @@ export class AppComponent implements OnInit {
       return c;
     });
     this.route.fragment
-    .pipe(
-      map(fragment => new URLSearchParams(fragment)),
-      map(params => ({
-        access_token: params.get('access_token'),
-        error: params.get('error'),
-      }))
-    )
-    .subscribe(params => {
-      this.token = params.access_token;
-      if (this.token) {
+      .pipe(
+        map(fragment => new URLSearchParams(fragment)),
+        map(params => ({
+          access_token: params.get(this.ACCESS_TOKEN),
+          error: params.get('error'),
+          expiresIn: params.get(this.EXPIRATION),
+        }))
+      )
+      .subscribe(async params => {
+        this.token = this.getSessionToken(params.access_token);
+        if (this.token) {
+          this.saveSession(this.token, params.expiresIn);
+          this.contestants = await this.getContestants(this.token);
           this.spotify.getProfile(this.token).subscribe(
-            (profile: any) => this.profile = profile
+            (profile: any) => this.profile = profile,
+            error => {
+              this.clearCache;
+              window.location.reload();
+            },
           );
           const base = [0, 50, 100];
           const rangeName = ['corto', 'medio', 'largo'];
@@ -70,22 +85,22 @@ export class AppComponent implements OnInit {
               ((tracks: any[]) => {
                 if (this.elFestivalQueQuieres) {
                   const newContestants = this.type === 'tracks' ? this.spotify.tracksToContestants(tracks) : this.spotify.artistsToContestants(tracks);
-                  console.log('New contestants', newContestants)
+                  // console.log('New contestants', newContestants)
                   newContestants.forEach((c, i) => {
-                    console.log(c.songTitle + ' is in ' + range + i)
+                    // console.log(c.songTitle + ' is in ' + range + i)
                     const index = this.contestants.findIndex(con => con.spotifyData[0].trackId === c.spotifyData[0].trackId);
-                    console.log(i);
+                    // console.log(i);
                     let points = (50 - i);
                     if (index !== -1) {
-                      console.log('Estaba');
+                      // console.log('Estaba');
                       this.contestants[index].points += points;
                     } else {
-                      console.log('No estaba')
+                      // console.log('No estaba')
                       c.points = points;
                       this.contestants.push(c);
                     }
                   });
-                  console.log(this.contestants)
+                  // console.log(this.contestants)
                   this.contestants = [...this.contestants];
                 } else {
                   this.tracks = tracks;
@@ -106,9 +121,9 @@ export class AppComponent implements OnInit {
               (err => window.location.href = environment.redirect_url)
             );
           });
+        }
       }
-    }
-  );
+      );
   }
 
   authorize() {
@@ -117,34 +132,34 @@ export class AppComponent implements OnInit {
 
   saveImage() {
     const collapsables = document.getElementsByTagName("button");
-    for (let i = 0; i < collapsables.length; i++ ) {
+    for (let i = 0; i < collapsables.length; i++) {
       collapsables.item(i).setAttribute('hidden', 'true');
     }
     const watermark = document.getElementById('watermark');
     watermark.removeAttribute('hidden');
     this.captureService.getImage(this.ranking.nativeElement, true)
-        .pipe(
-          tap(async img => {
-            var image = new Image();
-            image.src = img;
-            var url = image.src.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
-            var downloadLink = document.createElement("a");
-            downloadLink.href = url;
-            downloadLink.download = `Spotivision.png`;
-            for (let i = 0; i < collapsables.length; i++ ) {
-              collapsables.item(i).removeAttribute('hidden');
-            }
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-            watermark.setAttribute('hidden', 'true');
-          })
-        ).subscribe(() => {}, () => {
-          for (let i = 0; i < collapsables.length; i++ ) {
+      .pipe(
+        tap(async img => {
+          var image = new Image();
+          image.src = img;
+          var url = image.src.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
+          var downloadLink = document.createElement("a");
+          downloadLink.href = url;
+          downloadLink.download = `Spotivision.png`;
+          for (let i = 0; i < collapsables.length; i++) {
             collapsables.item(i).removeAttribute('hidden');
-            watermark.setAttribute('hidden', 'true');
           }
-        });
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          watermark.setAttribute('hidden', 'true');
+        })
+      ).subscribe(() => { }, () => {
+        for (let i = 0; i < collapsables.length; i++) {
+          collapsables.item(i).removeAttribute('hidden');
+          watermark.setAttribute('hidden', 'true');
+        }
+      });
   }
 
   async share() {
@@ -164,7 +179,7 @@ export class AppComponent implements OnInit {
   changeContest(event) {
     const i = event.target.value;
     this.contest = this.contests[i];
-    if(this.contest.playlistId) {
+    if (this.contest.playlistId) {
       this.spotify.getPlaylist(this.contest.playlistId, this.token).subscribe((contestants) => {
         this.contestants = contestants;
         /*this.contestants = contestants.map(c => {
@@ -181,9 +196,69 @@ export class AppComponent implements OnInit {
   }
 
   changeType(event) {
-    this.type = event.target.value;  
+    this.type = event.target.value;
     this.contestants = this.contest.contestants;
     this.getPoints();
   }
 
+  closeSession(): void {
+    this.clearCache();
+    window.location.reload();
+  }
+
+  private async getContestants(token: string): Promise<Contestant[]> {
+    const playlist: any = await this.spotify.getPlaylist('5kmlDhng1Z0CXN3z6vwCKo', token).toPromise();
+    console.log(playlist);
+    const contestants = playlist.tracks?.items ? playlist.tracks.items.map((item: any) => {
+      const trackId = item.track.id;
+      const songTitle = item.track.name;
+      const imageUrl = item.track.album.images ? item.track.album.images[item.track.album.images.length - 1].url : '';
+      let singer = '';
+      item.track.artists.forEach((artist: any) => {
+        if (singer) { singer += ','; }
+        singer += artist.name;
+      });
+      return new Contestant(songTitle, singer, trackId, songTitle, singer, imageUrl, 0);
+    }) : [];
+    return contestants;
+  }
+
+  private saveSession(accessToken: string, expiresIn: string): void {
+    this.sessionStorage.set(this.ACCESS_TOKEN, this.token);
+    if (expiresIn) {
+      this.sessionStorage.set(this.EXPIRATION, expiresIn);
+      const expiresInNumber = parseInt(expiresIn, 10);
+      this.sessionStorage.set(this.EXPIRATION_DATE, JSON.stringify(moment().add(expiresInNumber, 'seconds').valueOf()));
+    }
+    this.removeAuthParams(this.ACCESS_TOKEN);
+    this.removeAuthParams(this.EXPIRATION);
+  }
+
+  private getSessionToken(paramsToken: string): string {
+    const sessionToken = this.sessionStorage.get(this.ACCESS_TOKEN);
+    const sessionExpiration = this.sessionStorage.get(this.EXPIRATION_DATE);
+    if (sessionToken && sessionExpiration) {
+      if (moment().isAfter(moment(parseInt(sessionExpiration, 10)))) {
+        this.closeSession();
+      }
+      return sessionToken;
+    } else {
+      this.clearCache();
+      return paramsToken;
+    }
+  }
+
+  private removeAuthParams(param: string): void {
+    // Remove query params
+    this.router.navigate([], {
+      queryParams: {
+        param: null,
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  private clearCache(): void {
+    this.sessionStorage.clear();
+  }
 }
