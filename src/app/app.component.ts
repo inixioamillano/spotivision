@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   profile: any;
   contests = CONTESTS;
   contest = this.contests[0];
-  contestants = CONTESTANTS;
+  contestants = this.contest.contestants;
   canShare = true;
   @ViewChild('explanationDiv')
   inputMessageRef: ElementRef;
@@ -116,7 +116,7 @@ export class AppComponent implements OnInit {
     await window.navigator.share({
       title: "SpotiVision | Benidorm Fest 2022",
       url: "http://spotivision.inixio.dev/",
-      text: `¡Mis 12 puntos del #BenidormFest van para ${winner.songTitle} de ${winner.singer}! Descubre tu ranking según tu Spotify en #SpotiVision`
+      text: `¡Mis 12 puntos del #${this.contest.hashtag} van para ${winner.songTitle} de ${winner.singer}! Descubre tu ranking según tu Spotify en #SpotiVision`
     });
   }
 

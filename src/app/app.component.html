@@ -23,7 +23,7 @@
       <div class="selCon">
         Festival:
         <select name="contestSelect" class="background" [ngClass]="contest.id" id="contestSelect" (change)="changeContest($event)">
-          <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">{{c.name}}{{c.available ? '' : ' (Available soon)'}}</option>
+          <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">{{c.name}}{{c.available ? '' : ' (Próximamente)'}}</option>
         </select>
       </div>
       <div>
@@ -34,9 +34,9 @@
         <div class="col" style="display: flex;">
 
         </div>
-        <div class="bold" *ngIf="profile && (profile.name || profile.id); else generic">Puntos otorgados por {{profile.name || profile.id}} en el Benidorm Fest 2022 según Spotify</div>
+        <div class="bold" *ngIf="profile && (profile.name || profile.id); else generic">Puntos otorgados por {{profile.name || profile.id}} en {{contest.name}} según Spotify</div>
         <ng-template #generic>
-          <div class="bold">Mis puntos otorgados en el Benidorm Fest 2022 según Spotify</div>
+          <div class="bold">Mis puntos otorgados en {{contest.name}} según Spotify</div>
         </ng-template>
         <!--<a as="a" id="viewExp" (click)="scroll(explanationDiv, $event)">Ver explicación de los puntos otorgados</a>-->
         <div hidden class="text-center" id="watermark">https://spotivision.inixio.dev</div>

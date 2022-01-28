@@ -7,4 +7,5 @@ export class Contest {
     contestants: Contestant[];
     year: number;
     id: string;
+    isPre: boolean;
 }
