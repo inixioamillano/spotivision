@@ -11,33 +11,36 @@
   </nav>
   <div class="container">
     <div *ngIf="!token; else ranking" style="align-items: center;">
-      <p>Obtén tu ranking total y tus puntos del 1 al 12 de las canciones del Benidorm Fest 2022 en base a tus reproducciones de Spotify. El ranking se genera en base a tus canciones más escuchadas en Spotify en los últimos tiempos.</p>
-      <p>Es importante saber que <b>Spotify actualiza a diario los rankings de tus canciones más escuchadas</b> y que <b>cuanto más tiempo pase, más acertará tu ranking.</b></p>
-      <p><b>Los puntos que aparecen a la derecha no corresponde al número de escuchas, son puntos calculados en base a los puestos que ocupen en tu top 50 de Spotify.</b></p>
-      <p>Desarrollado por <a href="https://twitter.com/inixiodev" target="blank">@inixiodev</a>. Todos los derechos reservados.</p>
+      <p>Get a ranking of the Eurovision Song Contest based on your Spotify stats</p>
+      <p><b>It is important to know that Spotify updates the rankings of your most listened songs daily and that the more time passes, the more accurate your ranking will be.</b></p>
+      <p>The points that appear on the right do not correspond to the number of streams, they are points calculated based on the positions they occupy in your Spotify stats.</p>
+      <p>Developed by <a href="https://twitter.com/inixiodev" target="blank">@inixiodev</a>. All rights reserved.</p>
       <div class="col text-center">
-        <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Iniciar sesión con Spotify</button>
+        <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Login with Spotify</button>
       </div>
     </div>
     <ng-template #ranking>
       <div class="selCon">
-        Festival:
+        Contest:
         <select name="contestSelect" class="background" [ngClass]="contest.id" id="contestSelect" (change)="changeContest($event)">
-          <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">{{c.name}}{{c.available ? '' : ' (Próximamente)'}}</option>
+          <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">{{c.flagEmoji}} {{c.name}}{{c.available ? '' : ' (Available soon)'}}</option>
         </select>
       </div>
       <div>
-        <div class="col" style="display: flex; flex-wrap: wrap;">
-          <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Guardar</button>
-          <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" *ngIf="canShare" (click)="share()">Compartir</button>
+        <div class="col" style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
+          <!--<button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Save</button>-->
+          <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="float: left;" *ngIf="canShare" (click)="share()">Share</button>
         </div>
         <div class="col" style="display: flex;">
 
         </div>
-        <div class="bold" *ngIf="profile && (profile.name || profile.id); else generic">Puntos otorgados por {{profile.name || profile.id}} en {{contest.name}} según Spotify</div>
-        <ng-template #generic>
-          <div class="bold">Mis puntos otorgados en {{contest.name}} según Spotify</div>
-        </ng-template>
+        <div>
+          <div class="bold" *ngIf="profile && (profile.name || profile.id); else generic">{{profile.name || profile.id}}'s points in {{contest.name}} based on their Spotify stats</div>
+          <ng-template #generic>
+            <div class="bold">My points in {{contest.name}} based on my Spotify stats</div>
+          </ng-template>
+        <div id="watermark">https://spotivision.inixio.dev</div>
+        </div>
         <!--<a as="a" id="viewExp" (click)="scroll(explanationDiv, $event)">Ver explicación de los puntos otorgados</a>-->
         <div hidden class="text-center" id="watermark">https://spotivision.inixio.dev</div>
         <ranking [contestants]="contestants" [contest]="contest"></ranking>

@@ -34,6 +34,14 @@ export class AppComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    this.getPoints();
+  }
+
+  getPoints() {
+    this.contestants = this.contestants.map(c => {
+      c.points = 0;
+      return c;
+    });
     this.route.fragment
     .pipe(
       map(fragment => new URLSearchParams(fragment)),
@@ -114,9 +122,9 @@ export class AppComponent implements OnInit {
   async share() {
     const winner = this.orderByPoints.transform(this.contestants)[0];
     await window.navigator.share({
-      title: "SpotiVision | Benidorm Fest 2022",
+      title: "SpotiVision",
       url: "http://spotivision.inixio.dev/",
-      text: `¡Mis 12 puntos del #${this.contest.hashtag} van para ${winner.songTitle} de ${winner.singer}! Descubre tu ranking según tu Spotify en #SpotiVision`
+      text: `My 12 points go to ${winner.songTitle} (${winner.singer})! Discover your ranking based on your Spotify stats  #${this.contest.hashtag} #SpotiVision`
     });
   }
 
@@ -128,7 +136,20 @@ export class AppComponent implements OnInit {
   changeContest(event) {
     const i = event.target.value;
     this.contest = this.contests[i];
-    this.contestants = this.contest.contestants;
+    if(this.contest.playlistId) {
+      this.spotify.getPlaylist(this.contest.playlistId, this.token).subscribe((contestants) => {
+        this.contestants = contestants;
+        /*this.contestants = contestants.map(c => {
+          c.spotifyData[0].imageUrl = this.contest.imageUrl;
+          return c;
+        });*/
+        console.log('CONTESTANTS', contestants)
+        this.getPoints();
+      });
+    } else {
+      this.contestants = this.contest.contestants;
+      this.getPoints();
+    }
   }
 
 }

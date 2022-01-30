@@ -3,8 +3,110 @@ import { CONTESTANTS } from "./contestants";
 
 let CONTESTS: Contest[] = [
     {
+        name: 'Eurovision Song Contest 2022',
+        hashtag: 'Eurovision2022',
+        available: true,
+        isPre: false,
+        contestants: [
+            {
+                countryCode: 'es',
+                countryName: 'Spain',
+                songTitle: 'SloMo',
+                singer: 'Chanel',
+                spotifyData: [
+                  {
+                    title: 'SloMo',
+                    singer: 'Chanel',
+                    trackId: '3XREkzDHsWdBL5tybyCDBH',
+                    imageUrl: 'assets/flags/SP.png'
+                  }
+                ],
+                points: 0,
+                checked: true
+            },
+            {
+                songTitle: 'Intention',
+                countryCode: '',
+                countryName: '',
+                singer: 'Intelligent Music Project',
+                points: 0,
+                spotifyData: [
+                    {
+                        trackId: '15z4ROfNqCoxnzr2uOBYBn',
+                        title: 'Intention',
+                        singer: 'Intelligent Music Project',
+                        imageUrl: 'assets/flags/BU.png'
+                    }
+                ]
+            },
+            {
+                songTitle: 'Trenulețul',
+                countryCode: '',
+                countryName: '',
+                singer: 'Zdob și Zdub & Frații Advahov',
+                points: 0,
+                spotifyData: [
+                    {
+                        trackId: '63idiVcxkGB3hgH6n3qKqM',
+                        title: 'Trenulețul',
+                        singer: 'Zdob și Zdub & Frații Advahov',
+                        imageUrl: 'assets/flags/MO.png'
+                    }
+                ]
+            },
+            {
+                songTitle: 'Sekret',
+                countryCode: '',
+                countryName: '',
+                singer: 'Ronela Hajati',
+                points: 0,
+                spotifyData: [
+                    {
+                        trackId: '3VAbNFI8bZSsJao9KyTOhv',
+                        title: 'Sekret',
+                        singer: 'Ronela Hajati',
+                        imageUrl: 'assets/flags/AL.png'
+                    }
+                ]
+            },
+            {
+                songTitle: 'Lights Off',
+                countryCode: '',
+                countryName: '',
+                singer: 'We Are Domi',
+                points: 0,
+                spotifyData: [
+                    {
+                        trackId: '223mp598OfHDxzCI9J0198',
+                        title: 'Lights Off',
+                        singer: 'DOMI',
+                        imageUrl: 'assets/flags/RC.png'
+                    }
+                ]
+            },
+            /**{
+                songTitle: 'Breathe (Unforgivable)',
+                countryCode: '',
+                countryName: '',
+                singer: 'Vladana Vučinić',
+                points: 0,
+                spotifyData: [
+                    {
+                        trackId: '223mp598OfHDxzCI9J0198',
+                        title: 'Lights Off',
+                        singer: 'Vladana Vučinić',
+                        imageUrl: 'assets/flags/RC.png'
+                    }
+                ]
+            },**/
+        ],
+        year: 2022,
+        id: 'esc2022'
+    },
+    {
         name: 'Benidorm Fest 2022',
         hashtag: 'BenidormFest',
+        flagEmoji: '🇪🇸',
         available: true,
         contestants: CONTESTANTS,
         year: 2022,
@@ -12,8 +114,10 @@ let CONTESTS: Contest[] = [
         isPre: true
     },
     {
-        name: 'UMK 2022',
-        hashtag: 'UMK2002',
+        name: 'Uuden Musiikin Kilpailu 2022',
+        hashtag: 'UMK2022',
+        flagEmoji: '🇫🇮',
+        playlistId: '7GZoyHMyu2F2BHwLjfSMRL',
         available: true,
         isPre: true,
         contestants: [
@@ -127,29 +231,16 @@ let CONTESTS: Contest[] = [
         id: 'UMK2022'
     },
     {
-        name: 'Eurovision 2022',
-        hashtag: 'Eurovision2022',
-        available: false,
-        isPre: false,
-        contestants: [
-            {
-                songTitle: 'Intention',
-                countryCode: '',
-                countryName: '',
-                singer: 'Intelligent Music Project',
-                points: 0,
-                spotifyData: [
-                    {
-                        trackId: '15z4ROfNqCoxnzr2uOBYBn',
-                        title: 'Intention',
-                        singer: 'Intelligent Music Project',
-                        imageUrl: 'assets/flags/BU.png'
-                    }
-                ]
-            }
-        ],
+        name: 'Melodi Grand Prix 2022',
+        hashtag: 'MGP2022',
+        flagEmoji: '🇳🇴',
+        available: true,
+        isPre: true,
+        contestants: [],
+        playlistId: '5kmlDhng1Z0CXN3z6vwCKo',
+        imageUrl: 'assets/flags/NO.png',
         year: 2022,
-        id: 'esc2022'
+        id: 'mgp2022'
     }
 ]; 
 
@@ -165,6 +256,6 @@ const everyPre: Contest = {
 
 console.log(everyPre.contestants)
 
-CONTESTS = [everyPre, ...CONTESTS];
+// CONTESTS = [everyPre, ...CONTESTS];
 
 export default CONTESTS;

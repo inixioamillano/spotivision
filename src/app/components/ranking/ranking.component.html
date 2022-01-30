@@ -9,7 +9,7 @@
                 <div class="singer">{{contestant.singer}}</div>
             </div>
             <div class="points_container">
-                <div *ngIf="contestant.points > 0 && (i | indextopoints) > 0; else empty" class="points background" [ngClass]="contest.id">
+                <div *ngIf="contestant.points > 0 && (i | indextopoints) > 0; else empty" class="points background" [ngClass]="contest.id + '_points ' + contest.id">
                     {{i | indextopoints}}
                 </div>
                 <ng-template #empty>
