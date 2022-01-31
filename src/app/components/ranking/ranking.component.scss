@@ -23,6 +23,11 @@
 
 .title {
     font-family: 'Gotham-Bold';
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 180px; // some width
 }
 
 .singer {

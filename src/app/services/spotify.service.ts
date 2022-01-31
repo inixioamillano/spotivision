@@ -56,7 +56,7 @@ export class SpotifyService {
       )
   }
 
-  private tracksToContestants(tracks): Contestant[] {
+  tracksToContestants(tracks): Contestant[] {
     return tracks.map(t => {
       const contestant: Contestant = {
         countryCode: '',

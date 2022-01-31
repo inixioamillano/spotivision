@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
   contest = this.contests[0];
   contestants = this.contest.contestants;
   canShare = true;
+  elFestivalQueQuieres = true;
+  term = 'short_term';
   @ViewChild('explanationDiv')
   inputMessageRef: ElementRef;
   explanation = 'Spotify registra tus canciones más escuchadas en 3 listas: Top 50 a corto plazo, Top 50 a medio plazo y Top 50 a largo plazo. En función a la posición que ocupe una canción en cada lista, Spotivision otorga más o menos puntos.\n\n';
@@ -38,6 +40,10 @@ export class AppComponent implements OnInit {
   }
 
   getPoints() {
+    this.elFestivalQueQuieres = !this.contestants;
+    if (this.elFestivalQueQuieres) {
+      this.contestants = [];
+    }
     this.contestants = this.contestants.map(c => {
       c.points = 0;
       return c;
@@ -61,19 +67,40 @@ export class AppComponent implements OnInit {
           ['short_term', 'medium_term', 'long_term'].forEach((range, value) => {
             this.spotify.getTopTracks(this.token, range).subscribe(
               ((tracks: any[]) => {
-                this.tracks = tracks;
-                this.contestants = this.contestants.map((c) => {
-                  const index = tracks.findIndex((track) => c.spotifyData.find(sd => sd.trackId === track.id || sd.title === track.name));
-                  if (index !== -1) {
-                    let points = (50 - index);
-                    if (c.points === 0) {
-                      points += base[value];
+                if (this.elFestivalQueQuieres) {
+                  const newContestants = this.spotify.tracksToContestants(tracks);
+                  console.log('New contestants', newContestants)
+                  newContestants.forEach((c, i) => {
+                    console.log(c.songTitle + ' is in ' + range + i)
+                    const index = this.contestants.findIndex(con => con.spotifyData[0].trackId === c.spotifyData[0].trackId);
+                    console.log(i);
+                    let points = (50 - i);
+                    if (index !== -1) {
+                      console.log('Estaba');
+                      this.contestants[index].points += points;
+                    } else {
+                      console.log('No estaba')
+                      c.points = points;
+                      this.contestants.push(c);
                     }
-                    this.explanation = this.explanation + `${tracks[index].name} ocupa la posición ${index + 1} en tu Top 50 a ${rangeName[value]} plazo  (+${points} puntos),\n`;
-                    c.points += points;
-                  }
-                  return c;
-                });
+                  });
+                  console.log(this.contestants)
+                  this.contestants = [...this.contestants];
+                } else {
+                  this.tracks = tracks;
+                  this.contestants = this.contestants.map((c) => {
+                    const index = tracks.findIndex((track) => c.spotifyData.find(sd => sd.trackId === track.id || sd.title === track.name));
+                    if (index !== -1) {
+                      let points = (50 - index);
+                      if (c.points === 0) {
+                        points += base[value];
+                      }
+                      this.explanation = this.explanation + `${tracks[index].name} ocupa la posición ${index + 1} en tu Top 50 a ${rangeName[value]} plazo  (+${points} puntos),\n`;
+                      c.points += points;
+                    }
+                    return c;
+                  });
+                }
               }),
               (err => window.location.href = environment.redirect_url)
             );
