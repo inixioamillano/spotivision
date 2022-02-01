@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   canShare = true;
   elFestivalQueQuieres = true;
   term = 'short_term';
+  type = 'artists';
   @ViewChild('explanationDiv')
   inputMessageRef: ElementRef;
   explanation = 'Spotify registra tus canciones más escuchadas en 3 listas: Top 50 a corto plazo, Top 50 a medio plazo y Top 50 a largo plazo. En función a la posición que ocupe una canción en cada lista, Spotivision otorga más o menos puntos.\n\n';
@@ -65,10 +66,10 @@ export class AppComponent implements OnInit {
           const base = [0, 50, 100];
           const rangeName = ['corto', 'medio', 'largo'];
           ['short_term', 'medium_term', 'long_term'].forEach((range, value) => {
-            this.spotify.getTopTracks(this.token, range).subscribe(
+            this.spotify.getTopTracks(this.token, range, this.elFestivalQueQuieres ? this.type : 'tracks').subscribe(
               ((tracks: any[]) => {
                 if (this.elFestivalQueQuieres) {
-                  const newContestants = this.spotify.tracksToContestants(tracks);
+                  const newContestants = this.type === 'tracks' ? this.spotify.tracksToContestants(tracks) : this.spotify.artistsToContestants(tracks);
                   console.log('New contestants', newContestants)
                   newContestants.forEach((c, i) => {
                     console.log(c.songTitle + ' is in ' + range + i)
@@ -177,6 +178,12 @@ export class AppComponent implements OnInit {
       this.contestants = this.contest.contestants;
       this.getPoints();
     }
+  }
+
+  changeType(event) {
+    this.type = event.target.value;  
+    this.contestants = this.contest.contestants;
+    this.getPoints();
   }
 
 }

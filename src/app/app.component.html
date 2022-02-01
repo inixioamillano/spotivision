@@ -6,7 +6,7 @@
         <img class="logo" src="../assets/logo-flag.png">
         Vision
       </span>
-      <div class="subtitle">{{contest.name}}</div>
+      <div class="subtitle">{{contest.name | replace:'Spotivision ':''}}</div>
     </div>
   </nav>
   <div class="container">
@@ -24,6 +24,13 @@
         Contest:
         <select name="contestSelect" class="background" [ngClass]="contest.id" id="contestSelect" (change)="changeContest($event)">
           <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">{{c.flagEmoji}} {{c.name}}{{c.available ? '' : ' (Available soon)'}}</option>
+        </select>
+      </div>
+      <div *ngIf="elFestivalQueQuieres" class="selCon">
+        Type:
+        <select name="typeSelect" class="background" [ngClass]="contest.id" id="typeSelect" (change)="changeType($event)">
+          <option value="artists">🎤 Artists</option>
+          <option value="tracks">💿 Songs</option>
         </select>
       </div>
       <div>

@@ -3,14 +3,14 @@ import { CONTESTANTS } from "./contestants";
 
 let CONTESTS: Contest[] = [
     {
-        name: 'Your Song Contest',
-        hashtag: 'MySongContest',
+        name: 'Spotivision Song Contest',
+        hashtag: 'SpotivisionSongContest',
         available: true,
         isPre: false,
         contestants: null,
         year: 2022,
         id: 'ysc',
-        flagEmoji: '⭐'
+        flagEmoji: '🎙️'
     },
     {
         name: 'Eurovision Song Contest 2022',

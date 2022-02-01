@@ -16,6 +16,7 @@ import { VotablePipe } from './pipes/votable.pipe';
 import { VotedByPipe } from './pipes/voted-by.pipe';
 import { ExplanationPipe } from './pipes/explanation.pipe';
 import { ZeroPointsPipe } from './pipes/zero-points.pipe';
+import { ReplacePipe } from './pipes/replace.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ZeroPointsPipe } from './pipes/zero-points.pipe';
     VotedByPipe,
     OrderByPointsPipe,
     ExplanationPipe,
-    ZeroPointsPipe
+    ZeroPointsPipe,
+    ReplacePipe
   ],
   imports: [
     BrowserModule,
