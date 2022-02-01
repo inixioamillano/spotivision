@@ -83,13 +83,13 @@ export class SpotifyService {
         countryCode: '',
         countryName: '',
         songTitle: t.name,
-        singer: t.name,
+        singer: null,
         points: 0,
         spotifyData: [
           {
             trackId: t.id,
             title: t.name,
-            singer: t.name,
+            singer: null,
             imageUrl: t.images[0].url
           }
         ]
