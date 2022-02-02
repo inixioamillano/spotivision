@@ -152,7 +152,7 @@ export class AppComponent implements OnInit {
     await window.navigator.share({
       title: "SpotiVision",
       url: "http://spotivision.inixio.dev/",
-      text: `My 12 points go to ${winner.songTitle} (${winner.singer})! Discover your ranking based on your Spotify stats  #${this.contest.hashtag} #SpotiVision`
+      text: `My 12 points go to ${winner.songTitle}${winner.singer ? ` (${winner.singer})` : ''}! Discover your ranking based on your Spotify stats  #${this.contest.hashtag} #SpotiVision`
     });
   }
 

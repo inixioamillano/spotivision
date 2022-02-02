@@ -419,6 +419,17 @@ let CONTESTS: Contest[] = [
         isPre: true
     },
     {
+        name: 'Sanremo 2022',
+        hashtag: 'Sanremo2022',
+        flagEmoji: '🇮🇹',
+        available: true,
+        contestants: [],
+        year: 2022,
+        id: 'Sanremo2022',
+        isPre: true,
+        playlistId: '37i9dQZF1DWVQfeA9N7Q0g'
+    },
+    {
         name: 'Uuden Musiikin Kilpailu 2022',
         hashtag: 'UMK2022',
         flagEmoji: '🇫🇮',
