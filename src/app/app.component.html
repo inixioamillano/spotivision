@@ -1,59 +1,62 @@
 <div #printable>
-  <nav class="navbar fixed-top navbar-dark background" [ngClass]="contest.id" >
-    <div class="navbar-brand">
-      <span class="title">
+    <nav class="navbar fixed-top navbar-dark background" [ngClass]="contest.id">
+        <div class="navbar-brand">
+            <span class="title">
         Spoti
         <img class="logo" src="../assets/logo-flag.png">
         Vision
       </span>
-      <div class="subtitle">{{contest.name | replace:'Spotivision ':''}}</div>
-    </div>
-  </nav>
-  <div class="container">
-    <div *ngIf="!token; else ranking" style="align-items: center;">
-      <p>Get a ranking of the Eurovision Song Contest based on your Spotify stats</p>
-      <p><b>It is important to know that Spotify updates the rankings of your most listened songs daily and that the more time passes, the more accurate your ranking will be.</b></p>
-      <p>The points that appear on the right do not correspond to the number of streams, they are points calculated based on the positions they occupy in your Spotify stats.</p>
-      <p>Developed by <a href="https://twitter.com/inixiodev" target="blank">@inixiodev</a>. All rights reserved.</p>
-      <div class="col text-center">
-        <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Login with Spotify</button>
-      </div>
-    </div>
-    <ng-template #ranking>
-      <div class="selCon">
-        Contest:
-        <select name="contestSelect" class="background" [ngClass]="contest.id" id="contestSelect" (change)="changeContest($event)">
+            <div class="subtitle">{{contest.name | replace:'Spotivision ':''}}</div>
+        </div>
+    </nav>
+    <div class="container">
+        <div *ngIf="!token; else ranking" style="align-items: center;">
+            <p>Get a ranking of the Eurovision Song Contest based on your Spotify stats</p>
+            <p><b>It is important to know that Spotify updates the rankings of your most listened songs daily and that the more time passes, the more accurate your ranking will be.</b></p>
+            <p>The points that appear on the right do not correspond to the number of streams, they are points calculated based on the positions they occupy in your Spotify stats.</p>
+            <p>Developed by <a href="https://twitter.com/inixiodev" target="blank">@inixiodev</a>. All rights reserved.</p>
+            <div class="col text-center">
+                <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="authorize()">Login with Spotify</button>
+            </div>
+        </div>
+        <ng-template #ranking>
+            <div class="selCon">
+                Contest:
+                <select name="contestSelect" class="background" [ngClass]="contest.id" id="contestSelect" (change)="changeContest($event)">
           <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">{{c.flagEmoji}} {{c.name}}{{c.available ? '' : ' (Available soon)'}}</option>
         </select>
-      </div>
-      <div *ngIf="elFestivalQueQuieres" class="selCon">
-        Type:
-        <select name="typeSelect" class="background" [ngClass]="contest.id" id="typeSelect" (change)="changeType($event)">
+            </div>
+            <div *ngIf="elFestivalQueQuieres" class="selCon">
+                Type:
+                <select name="typeSelect" class="background" [ngClass]="contest.id" id="typeSelect" (change)="changeType($event)">
           <option value="artists">🎤 Artists</option>
           <option value="tracks">💿 Songs</option>
         </select>
-      </div>
-      <div>
-        <div class="col" style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
-          <!--<button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Save</button>-->
-          <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="float: left;" *ngIf="canShare" (click)="share()">Share</button>
-        </div>
-        <div class="col" style="display: flex;">
+            </div>
+            <div>
+                <div class="col" style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
+                    <!--<button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="max-width: fit-content; margin: 0 auto;" (click)="saveImage()">Save</button>-->
+                    <button type="button" class="btn btn-block btn-primary background" [ngClass]="contest.id" style="float: left;" *ngIf="canShare" (click)="share()">Share</button>
+                </div>
+                <div class="col" style="display: flex;">
 
+                </div>
+                <div>
+                    <div class="bold" *ngIf="profile && (profile.name || profile.id); else generic">{{profile.name || profile.id}}'s points in {{contest.name}} based on their Spotify stats</div>
+                    <ng-template #generic>
+                        <div class="bold">My points in {{contest.name}} based on my Spotify stats</div>
+                    </ng-template>
+                    <div id="watermark">https://spotivision.inixio.dev</div>
+                </div>
+                <!--<a as="a" id="viewExp" (click)="scroll(explanationDiv, $event)">Ver explicación de los puntos otorgados</a>-->
+                <div hidden class="text-center" id="watermark">https://spotivision.inixio.dev</div>
+                <ranking [contestants]="contestants" [contest]="contest"></ranking>
+            </div>
+        </ng-template>
+        <div class="col" style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <button type="button" class="btn btn-block btn-secondary background" [ngClass]="contest.id" *ngIf="token" style="float: left;" (click)="closeSession()">Close session</button>
         </div>
-        <div>
-          <div class="bold" *ngIf="profile && (profile.name || profile.id); else generic">{{profile.name || profile.id}}'s points in {{contest.name}} based on their Spotify stats</div>
-          <ng-template #generic>
-            <div class="bold">My points in {{contest.name}} based on my Spotify stats</div>
-          </ng-template>
-        <div id="watermark">https://spotivision.inixio.dev</div>
-        </div>
-        <!--<a as="a" id="viewExp" (click)="scroll(explanationDiv, $event)">Ver explicación de los puntos otorgados</a>-->
-        <div hidden class="text-center" id="watermark">https://spotivision.inixio.dev</div>
-        <ranking [contestants]="contestants" [contest]="contest"></ranking>
-      </div>
-    </ng-template>
-    <!--<div *ngIf="token" class="explanation">
+        <!--<div *ngIf="token" class="explanation">
       <p #explanationDiv style="white-space: pre-line">
         {{explanation}}
         <span *ngFor="let c of contestants | zeroPoints">
@@ -62,5 +65,5 @@
       </p>
       <p>Si una canción no obtiene puntos o obtiene menos puntos de los que crees que debería, es porque Spotify no ha registrado correctamente las estadísticas. Spotivision es lo más precisa que puede a partir de los datos que le aporta Spotify</p>
     </div>-->
-  </div>
+    </div>
 </div>
