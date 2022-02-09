@@ -23,15 +23,22 @@
             <div class="selCon">
                 Contest:
                 <select name="contestSelect" class="background" [ngClass]="contest.id" id="contestSelect" (change)="changeContest($event)">
-          <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">{{c.flagEmoji}} {{c.name}}{{c.available ? '' : ' (Available soon)'}}</option>
-        </select>
+                    <option [value]="i" *ngFor="let c of contests; let i = index" [disabled]="!c.available">
+                        {{c.flagEmoji}} {{c.name}}{{c.available ? '' : ' (Available soon)'}}
+                    </option>
+                </select>
             </div>
             <div *ngIf="elFestivalQueQuieres" class="selCon">
                 Type:
                 <select name="typeSelect" class="background" [ngClass]="contest.id" id="typeSelect" (change)="changeType($event)">
-          <option value="artists">🎤 Artists</option>
-          <option value="tracks">💿 Songs</option>
-        </select>
+                    <option value="artists">🎤 Artists</option>
+                    <option value="tracks">💿 Songs</option>
+                    <option value="customPlaylist">🎶 My own playlist</option>
+                </select>
+                <div *ngIf="type=='customPlaylist'" style="margin: 6px; display: flex;">
+                    <input type="text" name="playlistInput" id="playlistInput" class="customPlaylist" placeholder="Insert playlist link" [(ngModel)]="customPlaylist" />
+                    <button type="button" class="btn btn-block btn-secondary background" style="flex:auto;" *ngIf="token" (click)="getPlaylistData()">Use playlist</button>
+                </div>
             </div>
             <div>
                 <div class="col" style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
@@ -47,6 +54,7 @@
                         <div class="bold">My points in {{contest.name}} based on my Spotify stats</div>
                     </ng-template>
                     <div id="watermark">https://spotivision.inixio.dev</div>
+                    <h3 *ngIf="elFestivalQueQuieres && playlistName" style="display: flex; justify-content: left;">{{playlistName}}</h3>
                 </div>
                 <!--<a as="a" id="viewExp" (click)="scroll(explanationDiv, $event)">Ver explicación de los puntos otorgados</a>-->
                 <div hidden class="text-center" id="watermark">https://spotivision.inixio.dev</div>
