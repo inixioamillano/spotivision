@@ -17,98 +17,233 @@ let CONTESTS: Contest[] = [
         hashtag: 'Eurovision2022',
         available: true,
         isPre: false,
+        playlistId: '6CmxPUPEj66zSpGfSG4Q2u',
         contestants: [
             {
-                countryCode: 'es',
-                countryName: 'Spain',
-                songTitle: 'SloMo',
-                singer: 'Chanel',
-                spotifyData: [
-                  {
-                    title: 'SloMo',
-                    singer: 'Chanel',
-                    trackId: '3XREkzDHsWdBL5tybyCDBH',
-                    imageUrl: 'assets/flags/SP.png'
-                  }
-                ],
-                points: 0,
-                checked: true
-            },
-            {
-                songTitle: 'Intention',
-                countryCode: '',
-                countryName: '',
-                singer: 'Intelligent Music Project',
-                points: 0,
-                spotifyData: [
+                "countryCode": "ES",
+                "countryName": "ES",
+                "songTitle": "SloMo",
+                "singer": "Chanel",
+                "points": 72,
+                "spotifyData": [
                     {
-                        trackId: '15z4ROfNqCoxnzr2uOBYBn',
-                        title: 'Intention',
-                        singer: 'Intelligent Music Project',
-                        imageUrl: 'assets/flags/BU.png'
+                        "trackId": "3XREkzDHsWdBL5tybyCDBH",
+                        "title": "SloMo",
+                        "singer": "Chanel",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b273e72e1154ce7b6314ba087b0e"
                     }
                 ]
             },
             {
-                songTitle: 'Trenulețul',
-                countryCode: '',
-                countryName: '',
-                singer: 'Zdob și Zdub & Frații Advahov',
-                points: 0,
-                spotifyData: [
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Brividi",
+                "singer": "Mahmood",
+                "points": 0,
+                "spotifyData": [
                     {
-                        trackId: '63idiVcxkGB3hgH6n3qKqM',
-                        title: 'Trenulețul',
-                        singer: 'Zdob și Zdub & Frații Advahov',
-                        imageUrl: 'assets/flags/MO.png'
+                        "trackId": "1ZMGp9MTXbtAPvcKa0U3zS",
+                        "title": "Brividi",
+                        "singer": "Mahmood",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b27340c172c54696d8e6028c019f"
                     }
                 ]
             },
             {
-                songTitle: 'Sekret',
-                countryCode: '',
-                countryName: '',
-                singer: 'Ronela Hajati',
-                points: 0,
-                spotifyData: [
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "River",
+                "singer": "Ochman",
+                "points": 0,
+                "spotifyData": [
                     {
-                        trackId: '3VAbNFI8bZSsJao9KyTOhv',
-                        title: 'Sekret',
-                        singer: 'Ronela Hajati',
-                        imageUrl: 'assets/flags/AL.png'
+                        "trackId": "2fSz6MBKMPjOApUhGYfPid",
+                        "title": "River",
+                        "singer": "Ochman",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b27376b9ca25ad197d3f775b1684"
                     }
                 ]
             },
             {
-                songTitle: 'Lights Off',
-                countryCode: '',
-                countryName: '',
-                singer: 'We Are Domi',
-                points: 0,
-                spotifyData: [
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Lights Off",
+                "singer": "DOMI",
+                "points": 0,
+                "spotifyData": [
                     {
-                        trackId: '223mp598OfHDxzCI9J0198',
-                        title: 'Lights Off',
-                        singer: 'DOMI',
-                        imageUrl: 'assets/flags/RC.png'
+                        "trackId": "223mp598OfHDxzCI9J0198",
+                        "title": "Lights Off",
+                        "singer": "DOMI",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b2732e623c9995da511a5fd32104"
                     }
                 ]
             },
-            /**{
-                songTitle: 'Breathe (Unforgivable)',
-                countryCode: '',
-                countryName: '',
-                singer: 'Vladana Vučinić',
-                points: 0,
-                spotifyData: [
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Hope",
+                "singer": "STEFAN",
+                "points": 0,
+                "spotifyData": [
                     {
-                        trackId: '223mp598OfHDxzCI9J0198',
-                        title: 'Lights Off',
-                        singer: 'Vladana Vučinić',
-                        imageUrl: 'assets/flags/RC.png'
+                        "trackId": "6sSq38pmQxG0YuvbipDoEi",
+                        "title": "Hope",
+                        "singer": "STEFAN",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b273bdc276dd83868cc5492e02ac"
                     }
                 ]
-            },**/
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Give That Wolf A Banana",
+                "singer": "Subwoolfer",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "50Cf2eYv8zT3v2HAkwhIiL",
+                        "title": "Give That Wolf A Banana",
+                        "singer": "Subwoolfer",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b27312dfdff3261a2053f34f0dcc"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Eat Your Salad",
+                "singer": "Citi Zēni",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "0rNIEBlBuo5108lnHyGbqJ",
+                        "title": "Eat Your Salad",
+                        "singer": "Citi Zēni",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b273971a2a8070bc4b92b757f9a0"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Sekret",
+                "singer": "Ronela Hajati",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "3VAbNFI8bZSsJao9KyTOhv",
+                        "title": "Sekret",
+                        "singer": "Ronela Hajati",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b273e33c534d7dd52e71820c47ec"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Stefania (Kalush Orchestra)",
+                "singer": "KALUSH",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "0unPBMjVwn0HpWget3DBze",
+                        "title": "Stefania (Kalush Orchestra)",
+                        "singer": "KALUSH",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b27370587a949b95deeead1389fd"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Guilty Pleasure",
+                "singer": "Mia Dimšić",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "0er8krd7cEtPxVEEv0ZEHi",
+                        "title": "Guilty Pleasure",
+                        "singer": "Mia Dimšić",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b273f181b40a35e940126d180feb"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "That's Rich",
+                "singer": "Brooke",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "1oS41M8cx60aAeNe3k5Csw",
+                        "title": "That's Rich",
+                        "singer": "Brooke",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b27361fc18656605959ce6ecf0a5"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "I.M",
+                "singer": "Michael Ben David",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "20Sn6oqyImTPlzXANLxtie",
+                        "title": "I.M",
+                        "singer": "Michael Ben David",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b273fe40fc99ac1f54628246aad5"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Sentimentai",
+                "singer": "Monika LIU",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "0JNPmXGU9K9DJpV9eHppZz",
+                        "title": "Sentimentai",
+                        "singer": "Monika LIU",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b2739f4b00ae76bc215778e1c099"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Intention",
+                "singer": "Intelligent Music Project",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "15z4ROfNqCoxnzr2uOBYBn",
+                        "title": "Intention",
+                        "singer": "Intelligent Music Project",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b273d9c18687933203a19d433413"
+                    }
+                ]
+            },
+            {
+                "countryCode": "",
+                "countryName": "",
+                "songTitle": "Trenulețul (cu Frații Advahov)",
+                "singer": "Zdob si Zdub",
+                "points": 0,
+                "spotifyData": [
+                    {
+                        "trackId": "63idiVcxkGB3hgH6n3qKqM",
+                        "title": "Trenulețul (cu Frații Advahov)",
+                        "singer": "Zdob si Zdub",
+                        "imageUrl": "https://i.scdn.co/image/ab67616d0000b2731d289350f51a82b3c1a7486c"
+                    }
+                ]
+            }
         ],
         year: 2022,
         id: 'esc2022'
