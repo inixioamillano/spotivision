@@ -16,6 +16,7 @@ let CONTESTS: Contest[] = [
         name: 'Eurovision Song Contest 2022',
         hashtag: 'Eurovision2022',
         available: true,
+        playlistId: '6CmxPUPEj66zSpGfSG4Q2u',
         isPre: false,
         contestants: [
             {
